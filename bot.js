@@ -461,7 +461,47 @@ msg.delete();
 }
 });
 	
+client.on('message', message => {
+  if (true) {
+if (message.content === '=inv') {
+      message.author.send('https://discordapp.com/api/oauth2/authorize?client_id=461310122648666122&permissions=8&scope=bot').catch(e => console.log(e.stack));
 
+    }
+   } 
+  });
+
+
+client.on('message', message => {
+     if (message.content === "=inv") {
+     let embed = new Discord.RichEmbed()
+  .setAuthor(message.author.username)
+  .setColor("#9B59B6")
+  .addField(" Done | تــــم" , " |  تــــم ارســالك في الخــاص")
+     
+     
+     
+  message.channel.sendEmbed(embed);
+    }
+});
+    client.on('message' , message => {
+var prefix = "==";
+    if (message.content.startsWith(prefix + "off")) {
+        if (message.member.roles.some(r=>["┣CEO┤"].includes(r.name)) ) {
+                     message.channel.sendMessage("**:** ***Currently Shutting down...*** ")
+        setTimeout(function() {
+            client.destroy();
+            process.exit(0);
+        }, 2000);
+        } else {
+
+            return message.reply(`I cannot do that for you unfortunately`)
+                .then(message => {
+                    message.delete(10000);
+                }).catch(console.log);
+        }
+       
+    }
+});
    
 
   
