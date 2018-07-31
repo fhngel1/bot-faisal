@@ -503,7 +503,14 @@ var prefix = "==";
        
     }
 });
-   
+   client.on('message', message => {
+if(message.content == '<@ID Your Bot>') {
+message.channel.startTyping()
+setTimeout(() => { 
+message.channel.stopTyping()
+}, 7000);
+}
+});
 
   
 client.login(process.env.BOT_TOKEN);
