@@ -1,4 +1,4 @@
-	const Discord = require("discord.js");
+const Discord = require("discord.js");
 const ytdl = require("ytdl-core");
 const { Client, Util } = require('discord.js');
 const getYoutubeID = require('get-youtube-id');
@@ -25,7 +25,7 @@ client.on('ready', () => {
     client.user.setStatus("idle")
 });
   
-const prefix = "="
+const prefix = "%"
 client.on('message', async msg => { // eslint-disable-line
 	if (msg.author.bot) return undefined;
 	  
@@ -76,7 +76,7 @@ client.on('message', async msg => { // eslint-disable-line
 			        .setDescription(`**الرجآء من حضرتك إختيآر رقم المقطع** :
 ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
   
-					.setFooter("faisal") 
+					.setFooter("f") 
 					.setAuthor(client.user.username, client.user.avatarURL)
 					msg.channel.sendEmbed(embed1).then(message =>{message.delete(20000)})
 					
@@ -218,8 +218,8 @@ function play(guild, song) {
 	serverQueue.textChannel.send(`بدء تشغيل : **${song.title}**`);
 }  
 
-const adminprefix = "==";  
-const devs = ['269031102340005888'];  
+const adminprefix = "%%";  
+const devs = ['403644550364790785'];  
 client.on('message', message => {  
   var argresult = message.content.split(` `).slice(1).join(' ');  
     if (!devs.includes(message.author.id)) return;  
@@ -270,17 +270,15 @@ ${prefix}${prefix}setgame══▫لتغيير حاله البوت
 ${prefix}${prefix}setname══▪لتغيير اسم البوت
 ${prefix}${prefix}setavatar▫لتغيير صوره البوت
 ${prefix}${prefix}setT═════▪لتغيير تويتش البوت
-${prefix}${prefix}clear════▫لمسح الشات
-${prefix}${prefix}bc═══════▪لارسال للجميع رسالة برودسكات
 ═══════════════════════════
-**ADMIN:Faisal#0070**
+ＡＬＦＡＩＳＡＬ
  `)  
-  .setImage("https://media.discordapp.net/attachments/472298246228672512/472895366845693955/gif44.gif")
+  
    message.channel.sendEmbed(embed)  
     
-  }
+   }
    }); 
    
 
-
+  
 client.login(process.env.BOT_TOKEN);
