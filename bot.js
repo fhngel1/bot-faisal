@@ -25,7 +25,7 @@ client.on('ready', () => {
     client.user.setStatus("idle")
 });
   
-const prefix = "%"
+const prefix = "="
 client.on('message', async msg => { // eslint-disable-line
 	if (msg.author.bot) return undefined;
 	  
@@ -76,7 +76,7 @@ client.on('message', async msg => { // eslint-disable-line
 			        .setDescription(`**الرجآء من حضرتك إختيآر رقم المقطع** :
 ${videos.map(video2 => `[**${++index} **] \`${video2.title}\``).join('\n')}`)
   
-					.setFooter("f") 
+					.setFooter("faisal") 
 					.setAuthor(client.user.username, client.user.avatarURL)
 					msg.channel.sendEmbed(embed1).then(message =>{message.delete(20000)})
 					
@@ -218,8 +218,8 @@ function play(guild, song) {
 	serverQueue.textChannel.send(`بدء تشغيل : **${song.title}**`);
 }  
 
-const adminprefix = "%%";  
-const devs = ['403644550364790785'];  
+const adminprefix = "==";  
+const devs = ['269031102340005888'];  
 client.on('message', message => {  
   var argresult = message.content.split(` `).slice(1).join(' ');  
     if (!devs.includes(message.author.id)) return;  
@@ -270,14 +270,198 @@ ${prefix}${prefix}setgame══▫لتغيير حاله البوت
 ${prefix}${prefix}setname══▪لتغيير اسم البوت
 ${prefix}${prefix}setavatar▫لتغيير صوره البوت
 ${prefix}${prefix}setT═════▪لتغيير تويتش البوت
+${prefix}${prefix}clear════▫لمسح الشات
+${prefix}${prefix}bc═══════▪لارسال للجميع رسالة برودسكات
 ═══════════════════════════
-ＡＬＦＡＩＳＡＬ
+**ADMIN:Faisal#0070**
  `)  
-  
+  .setImage("https://media.discordapp.net/attachments/472298246228672512/472895366845693955/gif44.gif")
    message.channel.sendEmbed(embed)  
     
-   }
-   }); 
+  
+}
+})
+
+client.on('message', message => {
+  if(!message.channel.guild) return;
+var prefix = "==";
+if(message.content.startsWith('==bc')) {
+if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
+if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**للأسف لا تمتلك صلاحية** `ADMINISTRATOR`' );
+let args = message.content.split(" ").join(" ").slice(2 + prefix.length);
+let copy = "faisal";
+let request = `Requested By ${message.author.username}`;
+if (!args) return message.reply('**يجب عليك كتابة كلمة او جملة لإرسال البرودكاست**');message.channel.send(`**هل أنت متأكد من إرسالك البرودكاست؟ \nمحتوى البرودكاست:** \` ${args}\``).then(msg => {
+msg.react('✅')
+.then(() => msg.react('❌'))
+.then(() =>msg.react('✅'))
+
+let reaction1Filter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
+let reaction2Filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
+let reaction1 = msg.createReactionCollector(reaction1Filter, { time: 12000 });
+let reaction2 = msg.createReactionCollector(reaction2Filter, { time: 12000 });
+reaction1.on("collect", r => {
+message.channel.send(`☑ | Done ... The Broadcast Message Has Been Sent For ${message.guild.members.size} Members`).then(m => m.delete(5000));
+message.guild.members.forEach(m => {
+var bc = new
+Discord.RichEmbed()
+.setColor('#000000')
+.setTitle('Broadcast')
+.addField('Server', message.guild.name)
+.addField('Sender', message.author.username)
+.addField('Message', args)
+.setImage("https://cdn.discordapp.com/attachments/469932889921028106/473131404549423106/logo.png")
+.setThumbnail(message.author.avatarURL)
+.setFooter(copy, client.user.avatarURL);
+m.send({ embed: bc })
+msg.delete();
+})
+})
+reaction2.on("collect", r => {
+message.channel.send(`**Broadcast Canceled.**`).then(m => m.delete(5000));
+msg.delete();
+})
+})
+  
+}
+});
+
+
+
+
+client.on('message', message => {
+  if(!message.channel.guild) return;
+  var prefix = "=";
+if(message.content.startsWith( '==clear')) {
+if(!message.channel.guild) return message.channel.send('**This Command is Just For Servers**').then(m => m.delete(5000));
+if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**You Do not have permission** `ADMINISTRATOR`' );
+let args = message.content.split(" ").join(" ").slice(2 + prefix.length);
+let request = `Requested By ${message.author.username}`;
+message.channel.send(`**هل انت متاكد من فعل هذا**`).then(msg => {
+msg.react('✅')
+.then(() => msg.react('❌'))
+.then(() =>msg.react('✅'))
+
+let reaction1Filter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
+let reaction2Filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
+
+let reaction1 = msg.createReactionCollector(reaction1Filter, { time: 12000 });
+let reaction2 = msg.createReactionCollector(reaction2Filter, { time: 12000 });
+reaction1.on("collect", r => {
+message.channel.send(`Chat will delete`).then(m => m.delete(5000));
+var msg;
+       msg = parseInt();
+
+     message.channel.fetchMessages({limit: msg}).then(messages => message.channel.bulkDelete(messages)).catch(console.error);
+     message.channel.sendMessage("", {embed: {
+       title: "`` تم المسح ``",
+       color: 0x000000,
+       footer: {
+
+       }
+     }}).then(msg => {msg.delete(3000)});
+
+})
+reaction2.on("collect", r => {
+message.channel.send(`**Cتم الايقاف**`).then(m => m.delete(5000));
+msg.delete();
+})
+})
+}
+});
+   
+
+
+
+client.on('message', message => {
+  if(!message.channel.guild) return;
+var prefix = "===";
+if(message.content.startsWith('===bc')) {
+if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
+ if (message.author.id !== '269031102340005888')   return;    message.channel.send('**للأسف لا تمتلك صلاحية** `ADMINISTRATOR`' );
+let args = message.content.split(" ").join(" ").slice(2 + prefix.length);
+let copy = "faisal";
+let request = `Requested By ${message.author.username}`;
+if (!args) return message.reply('**يجب عليك كتابة كلمة او جملة لإرسال البرودكاست**');message.channel.send(`**هل أنت متأكد من إرسالك البرودكاست؟ \nمحتوى البرودكاست:** \` ${args}\``).then(msg => {
+msg.react('✅')
+.then(() => msg.react('❌'))
+.then(() =>msg.react('✅'))
+
+let reaction1Filter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
+let reaction2Filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
+let reaction1 = msg.createReactionCollector(reaction1Filter, { time: 12000 });
+let reaction2 = msg.createReactionCollector(reaction2Filter, { time: 12000 });
+reaction1.on("collect", r => {
+message.channel.send(`☑ | Done ... The Broadcast Message Has Been Sent For ${message.guild.members.size} Members`).then(m => m.delete(5000));
+message.guild.members.forEach(m => {
+var bc = new
+Discord.RichEmbed()
+.setColor('#000000')
+.setTitle('Broadcast')
+.addField('Server', message.guild.name)
+.addField('Sender', message.author.username)
+.addField('Message', args)
+.setImage("https://cdn.discordapp.com/attachments/469932889921028106/473131404549423106/logo.png")
+.setThumbnail(message.author.avatarURL)
+.setFooter(copy, client.user.avatarURL);
+m.send({ embed: bc })
+msg.delete();
+})
+})
+reaction2.on("collect", r => {
+message.channel.send(`**Broadcast Canceled.**`).then(m => m.delete(5000));
+msg.delete();
+})
+})
+  
+}
+});
+
+
+
+
+client.on('message', message => {
+  if(!message.channel.guild) return;
+  var prefix = "==";
+if(message.content.startsWith( '===clear')) {
+if(!message.channel.guild) return message.channel.send('**This Command is Just For Servers**').then(m => m.delete(5000));
+ if (message.author.id !== '269031102340005888')   return;     message.channel.send('**You Do not have permission** `ADMINISTRATOR`' );
+let args = message.content.split(" ").join(" ").slice(2 + prefix.length);
+let request = `Requested By ${message.author.username}`;
+message.channel.send(`**هل انت متاكد من فعل هذا**`).then(msg => {
+msg.react('✅')
+.then(() => msg.react('❌'))
+.then(() =>msg.react('✅'))
+
+let reaction1Filter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
+let reaction2Filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
+
+let reaction1 = msg.createReactionCollector(reaction1Filter, { time: 12000 });
+let reaction2 = msg.createReactionCollector(reaction2Filter, { time: 12000 });
+reaction1.on("collect", r => {
+message.channel.send(`Chat will delete`).then(m => m.delete(5000));
+var msg;
+       msg = parseInt();
+
+     message.channel.fetchMessages({limit: msg}).then(messages => message.channel.bulkDelete(messages)).catch(console.error);
+     message.channel.sendMessage("", {embed: {
+       title: "`` تم المسح ``",
+       color: 0x000000,
+       footer: {
+
+       }
+     }}).then(msg => {msg.delete(3000)});
+
+})
+reaction2.on("collect", r => {
+message.channel.send(`**Cتم الايقاف**`).then(m => m.delete(5000));
+msg.delete();
+})
+})
+}
+});
+	
+
    
 
   
