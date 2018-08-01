@@ -244,44 +244,146 @@ if (message.content.startsWith(adminprefix + 'setT')) {
 
 });
 
-client.on("message", message => {
- if (message.content === `${prefix}`) {
-  const embed = new Discord.RichEmbed()   
-  .setThumbnail(message.author.avatarURL) 
-      .setColor("#000000")  
-      .setDescription(`
-
-
-╔═╦═╦╦╦══╦══╦═╗
-║║║║║║║══╬║║╣╔╝
-║║║║║║╠══╠║║╣╚╗
-╚╩═╩╩═╩══╩══╩═╝
-═══════════════════════════
-${prefix}play════▫لتشغيل أغنية برآبط أو بأسم
-${prefix}skip════▪لتجآوز الأغنية الحآلية
-${prefix}pause═══▫إيقآف الأغنية مؤقتا
-${prefix}resume══▪لموآصلة الإغنية بعد إيقآفهآ مؤقتا
-${prefix}vol═════▫لتغيير درجة الصوت 100 - 0
-${prefix}stop════▪لإخرآج البوت من الروم
-${prefix}np══════▫لمعرفة الأغنية المشغلة حآليا
-${prefix}queue═══▪لمعرفة قآئمة التشغيل
-${prefix}inv═══▪لاضافه البوت لسرفرك
-════════**ADMIN**══════════════
-${prefix}${prefix}setgame══▫لتغيير حاله البوت
-${prefix}${prefix}setname══▪لتغيير اسم البوت
-${prefix}${prefix}setavatar▫لتغيير صوره البوت
-${prefix}${prefix}setT═════▪لتغيير تويتش البوت
-${prefix}${prefix}clear════▫لمسح الشات
-${prefix}${prefix}bc═══════▪لارسال للجميع رسالة برودسكات
-═══════════════════════════
-**ADMIN:Faisal#0070**
- `)  
-  .setImage("https://media.discordapp.net/attachments/472298246228672512/472895366845693955/gif44.gif")
-   message.channel.sendEmbed(embed)  
+client.on('message', message => {
+var prefix = "=";
+ if (message.content === `${prefix}`) { 
     
   
-}
+
+
+
+let pages = [`
+    ═══════════════════════════
+    ╔═╦═╦╦╦══╦══╦═╗
+    ║║║║║║║══╬║║╣╔╝
+    ║║║║║║╠══╠║║╣╚╗
+    ╚╩═╩╩═╩══╩══╩═╝
+    برفكس البوت 
+    prefix:${prefix}
+    **ADMIN:Faisal#0070**
+    للانتقال
+    ◀ ▶
+    ═══════════════════════════
+    انتقل ▶ 
+
+
+
+
+ `,`
+ ═══════════MUSIC═══════════
+ ${prefix}play════▫لتشغيل أغنية برآبط أو بأسم
+ ${prefix}skip════▪لتجآوز الأغنية الحآلية
+ ${prefix}pause═══▫إيقآف الأغنية مؤقتا
+ ${prefix}resume══▪لموآصلة الإغنية بعد إيقآفهآ مؤقتا
+ ${prefix}vol═════▫لتغيير درجة الصوت 100 - 0
+ ${prefix}stop════▪لإخرآج البوت من الروم
+ ${prefix}np══════▫لمعرفة الأغنية المشغلة حآليا
+ ${prefix}queue═══▪لمعرفة قآئمة التشغيل
+ 
+ ═══════════════════════════
+انتقل ▶ 
+   `,`
+   ═══════**ADMIN**══════════════
+   ${prefix}${prefix}setgame══▫لتغيير حاله البوت
+   ${prefix}${prefix}setname══▪لتغيير اسم البوت
+   ${prefix}${prefix}setavatar▫لتغيير صوره البوت
+   ${prefix}${prefix}setT═════▪لتغيير تويتش البوت
+   ${prefix}${prefix}clear════▫لمسح الشات
+   ${prefix}${prefix}bc═══════▪لارسال للجميع رسالة برودسكات
+   ═══════════════════════════
+   **ADMIN:Faisal#0070**
+   ═══════════════════════════
+◀للرجوع 
+   `]
+    let page = 1;
+
+    let embed = new Discord.RichEmbed()
+.setImage("https://media.discordapp.net/attachments/472298246228672512/474193907693912064/gif-2.gif")
+    .setColor('#000000')
+.setThumbnail(message.author.avatarURL) 
+
+    .setFooter(`Page ${page} of ${pages.length}`)
+    .setDescription(pages[page-1])
+
+
+    message.channel.sendEmbed(embed) .then(msg => {
+
+        msg.react('◀').then( r => {
+            msg.react('▶')
+
+
+        const backwardsFilter = (reaction, user) => reaction.emoji.name === '◀' && user.id === message.author.id;
+        const forwardsFilter = (reaction, user) => reaction.emoji.name === '▶' && user.id === message.author.id;
+
+
+        const backwards = msg.createReactionCollector(backwardsFilter, { time: 2000000});
+        const forwards = msg.createReactionCollector(forwardsFilter, { time: 2000000});
+
+
+
+        backwards.on('collect', r => {
+            if (page === 1) return;
+            page--;
+            embed.setDescription(pages[page-1]);
+            embed.setFooter(`Page ${page} of ${pages.length}`);
+            msg.edit(embed)
+        })
+        forwards.on('collect', r => {
+            if (page === pages.length) return;
+            page++;
+            embed.setDescription(pages[page-1]);
+            embed.setFooter(`Page ${page} of ${pages.length}`);
+            msg.edit(embed)
+        })
+        })
+    })
+    }
+}); 
+
+client.on('message', message => {
+  if(!message.channel.guild) return;
+var prefix = "==";
+if(message.content.startsWith('==bc')) {
+if(!message.channel.guild) return message.channel.send('**هذا الأمر فقط للسيرفرات**').then(m => m.delete(5000));
+if(!message.member.hasPermission('ADMINISTRATOR')) return      message.channel.send('**للأسف لا تمتلك صلاحية** `ADMINISTRATOR`' );
+let args = message.content.split(" ").join(" ").slice(2 + prefix.length);
+let copy = "faisal";
+let request = `Requested By ${message.author.username}`;
+if (!args) return message.reply('**يجب عليك كتابة كلمة او جملة لإرسال البرودكاست**');message.channel.send(`**هل أنت متأكد من إرسالك البرودكاست؟ \nمحتوى البرودكاست:** \` ${args}\``).then(msg => {
+msg.react('✅')
+.then(() => msg.react('❌'))
+.then(() =>msg.react('✅'))
+
+let reaction1Filter = (reaction, user) => reaction.emoji.name === '✅' && user.id === message.author.id;
+let reaction2Filter = (reaction, user) => reaction.emoji.name === '❌' && user.id === message.author.id;
+let reaction1 = msg.createReactionCollector(reaction1Filter, { time: 12000 });
+let reaction2 = msg.createReactionCollector(reaction2Filter, { time: 12000 });
+reaction1.on("collect", r => {
+message.channel.send(`☑ | Done ... The Broadcast Message Has Been Sent For ${message.guild.members.size} Members`).then(m => m.delete(5000));
+message.guild.members.forEach(m => {
+var bc = new
+Discord.RichEmbed()
+.setColor('#000000')
+.setTitle('Broadcast')
+.addField('Server', message.guild.name)
+.addField('Sender', message.author.username)
+.addField('Message', args)
+.setImage("https://cdn.discordapp.com/attachments/469932889921028106/473131404549423106/logo.png")
+.setThumbnail(message.author.avatarURL)
+.setFooter(copy, client.user.avatarURL);
+m.send({ embed: bc })
+msg.delete();
 })
+})
+reaction2.on("collect", r => {
+message.channel.send(`**Broadcast Canceled.**`).then(m => m.delete(5000));
+msg.delete();
+})
+})
+  
+}
+});
+
 
 client.on('message', message => {
   if(!message.channel.guild) return;
