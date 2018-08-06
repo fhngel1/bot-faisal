@@ -616,3 +616,100 @@ message.channel.stopTyping()
 
   
 client.login(process.env.BOT_TOKEN);
+const Eris = require("eris");
+var kboosh = new Eris(process.env.BOT_TOKEN);
+var kboosh_id = "475701373980114964";
+                    var i = "0";
+                    var x = "0";
+kboosh.on("voiceChannelJoin", (msg) => {
+    x++;
+    kboosh.editChannel(kboosh_id, { name : "⚜The space Voice⚜「" + x + "」"});
+});
+kboosh.on("voiceChannelLeave", (msg) => {
+    x--;
+    kboosh.editChannel(kboosh_id, { name : "⚜The space Voice⚜ 「" + x + "」"});
+});
+
+kboosh.on("messageCreate", (msg) => {
+    if(msg.author.id !== "269031102340005888") return kboosh.createMessage('__**This Command is only for the bot Owner**__');
+    if(msg.content === "=voice") {
+        let users = msg.channel.guild.members.map(m => m.user.id);
+        let messages = [];
+        messages.push(users);
+        setTimeout(function(){
+        while (i <= messages[0].length - 1) {
+            check = msg.channel.guild.members.get(messages[0][i]);
+        if(!check.voiceState.channelID){
+                i++;
+        }else{
+                x++;
+                i++;
+        }
+}
+    console.log(x);
+    kboosh.createMessage(msg.channel.id, "Voice Online Members Now Are: **"+x+"** Members!");
+    kboosh.editChannel(kboosh_id, { name : "Voice ⇏「"+x+"」"});
+    messages = [];
+}, 1);
+    }
+});
+var eris= "436575877871042571";
+kboosh.on("ready", ready => {
+setInterval(function(){
+ 
+            var currentTime = new Date(),
+            hours = currentTime.getHours() + 0 ,
+            minutes = currentTime.getMinutes(),
+            seconds = currentTime.getSeconds(),
+            years = currentTime.getFullYear(),
+            month = currentTime.getMonth() + 1,
+            day = currentTime.getDate(),
+            week = currentTime.getDay();
+           
+             
+ 
+            if (minutes < 10) {
+                minutes = "0" + minutes;
+            }
+            var suffix = "صباحاَ";
+            if (hours >= 12) {
+                suffix = "مساء";
+                hours = hours - 12;
+            }
+            if (hours == 0) {
+                hours = 12;
+            }
+
+kboosh.editChannel("475974842697383936", { name : "⚜「 " + "الوقت : " + hours + ":" + minutes + " " + suffix + " 」⚜"});
+kboosh.editChannel("475969011012861963", {name : " ⚜Date " + "「" + day + "-" + month + "-" + years + "」⚜"})
+
+
+
+
+}, 6000);
+ 
+});
+
+var iiserver = "436575877871042571";
+kboosh.on("ready", ready => {
+setInterval(function(){
+
+
+kboosh.editChannel("475976011452907530", {name : "⚜T"})
+kboosh.editChannel("475976011452907530", {name : "⚜Th"})
+kboosh.editChannel("475976011452907530", {name : "⚜The"})
+kboosh.editChannel("475976011452907530", {name : "⚜The "})
+kboosh.editChannel("475976011452907530", {name : "⚜The S"})
+kboosh.editChannel("475976011452907530", {name : "⚜The Sp"})
+kboosh.editChannel("475976011452907530", {name : "⚜The Spa"})
+kboosh.editChannel("475976011452907530", {name : "⚜The Spac"})
+kboosh.editChannel("475976011452907530", {name : "⚜The Space✨"})
+
+
+
+}, 6000);
+});
+  
+
+kboosh.connect(process.env.BOT_TOKEN)
+
